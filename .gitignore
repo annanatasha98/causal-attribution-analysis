@@ -4,3 +4,5 @@ dwm/
 src/data/__pycache__/
 __pycache__/
 *.pyc
+requirements.txt
+notebooks/trial_1.ipynb
