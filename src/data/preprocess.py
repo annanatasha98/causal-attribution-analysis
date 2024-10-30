@@ -244,10 +244,7 @@ def handle_missing_values(df):
 
 # ------------------------------------------------------------- 4. harvesine
 def haversine(lat1, lon1, lat2, lon2):
-    """
-    Calculate the great-circle distance between two points
-    on the Earth's surface given their latitude and longitude in decimal degrees.
-    """
+
     # Convert latitude and longitude from degrees to radians
     lat1, lon1, lat2, lon2 = map(np.radians, [lat1, lon1, lat2, lon2])
     # Haversine formula
@@ -272,6 +269,11 @@ def preprocessing(df, state_to_region):
     df['Product_size'] = df['product_length_cm'] * df['product_height_cm'] * df['product_width_cm']
     df['No_photos'] = df['product_photos_qty']
     df['Product_price'] = df['price']
+
+    #
+    df['order_delivered_customer_date'] = pd.to_datetime(df['order_delivered_customer_date'])
+    df['order_estimated_delivery_date'] = pd.to_datetime(df['order_estimated_delivery_date'])
+    df['order_purchase_timestamp'] = pd.to_datetime(df['order_purchase_timestamp'])
 
     df['late_delivery_in_days'] = (df['order_delivered_customer_date'] - df['order_estimated_delivery_date']).dt.days
     df['is_delivery_late'] = np.where(df['late_delivery_in_days'] > 0, 1, 0)
